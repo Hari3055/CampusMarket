@@ -46,7 +46,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&q=80')] opacity-10 bg-cover bg-center" />
         <div className="absolute inset-0 bg-gradient-to-t from-green-900/50 to-transparent" />
 
-        <div className="relative max-w-6xl mx-auto px-4 py-12 sm:py-16">
+        <div className="relative w-full px-6 lg:px-10 py-12 sm:py-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -77,7 +77,7 @@ export default function Home() {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      <div className="w-full px-6 lg:px-10 py-8">
         {/* Campus Filter */}
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-3">

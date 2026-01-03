@@ -32,7 +32,7 @@ export default function Layout({ children }) {
     <div className="min-h-screen bg-gray-50">
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-4">
+        <div className="w-full px-6 lg:px-10">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link to={createPageUrl("Home")} className="flex items-center gap-2.5">

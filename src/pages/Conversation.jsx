@@ -93,7 +93,7 @@ export default function Conversation() {
   if (!user || !isUfvStudent) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-3xl mx-auto px-4 py-8">
+        <div className="w-full px-6 lg:px-10 py-8">
           <Link to={createPageUrl("Messages")}>
             <Button
               variant="ghost"
@@ -120,7 +120,7 @@ export default function Conversation() {
   if (!isVerified) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-3xl mx-auto px-4 py-8">
+        <div className="w-full px-6 lg:px-10 py-8">
           <Link to={createPageUrl("Messages")}>
             <Button
               variant="ghost"
@@ -146,7 +146,7 @@ export default function Conversation() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      <div className="max-w-3xl mx-auto px-4 py-8 flex flex-col gap-4">
+      <div className="w-full px-6 lg:px-10 py-8 flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Link to={createPageUrl("Messages")}>

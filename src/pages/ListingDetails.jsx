@@ -124,7 +124,7 @@ export default function ListingDetails() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="w-full px-6 lg:px-10 py-8">
           <Skeleton className="h-8 w-32 mb-6" />
           <div className="grid md:grid-cols-2 gap-8">
             <Skeleton className="aspect-square rounded-2xl" />
@@ -154,7 +154,7 @@ export default function ListingDetails() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      <div className="max-w-4xl mx-auto px-4 py-6 sm:py-8">
+      <div className="w-full px-6 lg:px-10 py-6 sm:py-8">
         {/* Back Button */}
         <Link to={createPageUrl("Home")}>
           <Button

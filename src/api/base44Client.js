@@ -1,6 +1,6 @@
-// Lightweight client used by the React app to talk to the backend API.
-// It is intentionally simple and defensive so the UI does not crash
-// even if the backend is down or misconfigured during local development.
+// Lightweight client used by the React app to talk to the Express backend.
+// It is intentionally simple and defensive so the UI doesn't crash
+// if the backend is offline or misconfigured during local development.
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:4001/api";
 const TOKEN_KEY = "cm_auth_token";
@@ -32,7 +32,7 @@ function dispatchAuthChanged() {
   try {
     window.dispatchEvent(new Event("cm-auth-changed"));
   } catch {
-    // Best-effort only.
+    // Best effort only.
   }
 }
 
@@ -104,15 +104,12 @@ export const base44 = {
     },
 
     async isAuthenticated() {
-      // For now we just check for a token; the hook that uses this
-      // will also call `me()` which will fail if the token is invalid.
+      // Quick check: just see if we have a token.
       return !!getToken();
     },
 
     async me() {
-      return apiRequest("/auth/me", {
-        method: "GET",
-      });
+      return apiRequest("/auth/me", { method: "GET" });
     },
 
     redirectToLogin(nextUrl) {
@@ -128,9 +125,7 @@ export const base44 = {
     Listing: {
       async filter(filters = {}, sort) {
         const query = buildQuery(filters);
-        const items = await apiRequest(`/listings${query}`, {
-          method: "GET",
-        });
+        const items = await apiRequest(`/listings${query}`, { method: "GET" });
 
         if (Array.isArray(items) && sort === "-created_date") {
           items.sort(
@@ -167,9 +162,7 @@ export const base44 = {
     Message: {
       async filter(filters = {}, sort) {
         const query = buildQuery(filters);
-        const items = await apiRequest(`/messages${query}`, {
-          method: "GET",
-        });
+        const items = await apiRequest(`/messages${query}`, { method: "GET" });
 
         if (Array.isArray(items) && sort === "-created_date") {
           items.sort(
@@ -202,15 +195,26 @@ export const base44 = {
 
   integrations: {
     Core: {
-      // There is no real upload API in this backend; for now we just
-      // return a local object URL so images can be previewed in the UI.
-      // In a real deployment you would swap this out for cloud storage.
+      // Upload an image to the backend and return a permanent URL.
       async UploadFile({ file }) {
-        if (typeof window === "undefined" || !file) {
-          return { file_url: "" };
-        }
-        const url = URL.createObjectURL(file);
-        return { file_url: url };
+        if (typeof window === "undefined" || !file) return { file_url: "" };
+
+        const dataUrl = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(String(reader.result || ""));
+          reader.onerror = () => reject(new Error("Failed to read file"));
+          reader.readAsDataURL(file);
+        });
+
+        const result = await apiRequest("/upload", {
+          method: "POST",
+          body: JSON.stringify({
+            dataUrl,
+            filename: file.name || "",
+          }),
+        });
+
+        return { file_url: result?.file_url || "" };
       },
     },
   },

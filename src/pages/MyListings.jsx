@@ -85,7 +85,7 @@ export default function MyListings() {
   if (!user || !isUfvStudent) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-2xl mx-auto px-4 py-8">
+        <div className="w-full px-6 lg:px-10 py-8">
           <Link to={createPageUrl("Home")}>
             <Button
               variant="ghost"
@@ -119,7 +119,7 @@ export default function MyListings() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="w-full px-6 lg:px-10 py-8">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>

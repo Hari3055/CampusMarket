@@ -64,7 +64,7 @@ export default function Messages() {
   if (!user || !isUfvStudent) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-3xl mx-auto px-4 py-8">
+        <div className="w-full px-6 lg:px-10 py-8">
           <Link to={createPageUrl("Home")}>
             <Button
               variant="ghost"
@@ -99,7 +99,7 @@ export default function Messages() {
   if (!isVerified) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-3xl mx-auto px-4 py-8">
+        <div className="w-full px-6 lg:px-10 py-8">
           <Link to={createPageUrl("Home")}>
             <Button
               variant="ghost"
@@ -131,7 +131,7 @@ export default function Messages() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      <div className="max-w-3xl mx-auto px-4 py-8">
+      <div className="w-full px-6 lg:px-10 py-8">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
             <Link to={createPageUrl("Home")}>

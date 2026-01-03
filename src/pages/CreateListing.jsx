@@ -23,7 +23,7 @@ export default function CreateListing() {
   if (!user) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-2xl mx-auto px-4 py-8">
+        <div className="w-full px-6 lg:px-10 py-8">
           <Link to={createPageUrl("Home")}>
             <Button
               variant="ghost"
@@ -61,7 +61,7 @@ export default function CreateListing() {
   if (!isUfvStudent) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-2xl mx-auto px-4 py-8">
+        <div className="w-full px-6 lg:px-10 py-8">
           <Link to={createPageUrl("Home")}>
             <Button
               variant="ghost"
@@ -117,7 +117,7 @@ export default function CreateListing() {
   if (!isVerified) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-2xl mx-auto px-4 py-8">
+        <div className="w-full px-6 lg:px-10 py-8">
           <Link to={createPageUrl("Home")}>
             <Button
               variant="ghost"
@@ -169,7 +169,7 @@ export default function CreateListing() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      <div className="max-w-2xl mx-auto px-4 py-8">
+      <div className="w-full px-6 lg:px-10 py-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
