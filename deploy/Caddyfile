@@ -1,0 +1,4 @@
+campusmarket.ca, www.campusmarket.ca {
+  reverse_proxy 127.0.0.1:4001
+}
+

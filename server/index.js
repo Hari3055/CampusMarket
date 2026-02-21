@@ -45,6 +45,11 @@ const RESEND_API_KEY = process.env.RESEND_API_KEY || "";
 const FROM_EMAIL =
   process.env.FROM_EMAIL || "Campus Market <noreply@campusmarket.ca>";
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
+const IS_PRODUCTION = process.env.NODE_ENV === "production";
+
+if (IS_PRODUCTION && (!process.env.JWT_SECRET || process.env.JWT_SECRET.trim() === "")) {
+  throw new Error("JWT_SECRET must be set in production.");
+}
 
 const resend = RESEND_API_KEY ? new Resend(RESEND_API_KEY) : null;
 
@@ -197,8 +202,11 @@ app.post("/api/auth/signup", async (req, res) => {
     console.warn("RESEND_API_KEY not set; verification URL:", verifyUrl);
   }
 
-  // For local dev we also return the URL so you can click it directly
-  return res.json({ ok: true, verifyUrl });
+  // Only expose the direct verification URL in non-production environments.
+  if (!IS_PRODUCTION) {
+    return res.json({ ok: true, verifyUrl });
+  }
+  return res.json({ ok: true });
 });
 
 app.post("/api/auth/verify-email", (req, res) => {
@@ -211,18 +219,8 @@ app.post("/api/auth/verify-email", (req, res) => {
     return res.status(400).json({ error: "Invalid or expired token." });
   }
 
-  // For development, be forgiving about tokens: as long as the email matches
-  // an existing user, mark it verified. This avoids issues with stale tokens
-  // while you're iterating. For production you can tighten this.
-  if (existing.verificationToken && existing.verificationToken !== token) {
-    console.warn(
-      "Verification token mismatch for",
-      existing.email,
-      "expected",
-      existing.verificationToken,
-      "got",
-      token
-    );
+  if (!existing.verificationToken || existing.verificationToken !== token) {
+    return res.status(400).json({ error: "Invalid or expired token." });
   }
 
   const user = {
